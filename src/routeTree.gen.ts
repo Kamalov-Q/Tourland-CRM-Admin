@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as EmployeeRouteImport } from './routes/employee'
@@ -35,6 +36,11 @@ import { Route as DirectorClientsRouteImport } from './routes/director.clients'
 import { Route as DirectorAttendanceRouteImport } from './routes/director.attendance'
 import { Route as DirectorArchiveRouteImport } from './routes/director.archive'
 
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -167,6 +173,7 @@ export interface FileRoutesByFullPath {
   '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/notifications': typeof NotificationsRoute
   '/director/archive': typeof DirectorArchiveRoute
   '/director/attendance': typeof DirectorAttendanceRoute
   '/director/clients': typeof DirectorClientsRoute
@@ -192,6 +199,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/notifications': typeof NotificationsRoute
   '/director/archive': typeof DirectorArchiveRoute
   '/director/attendance': typeof DirectorAttendanceRoute
   '/director/clients': typeof DirectorClientsRoute
@@ -220,6 +228,7 @@ export interface FileRoutesById {
   '/employee': typeof EmployeeRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/notifications': typeof NotificationsRoute
   '/director/archive': typeof DirectorArchiveRoute
   '/director/attendance': typeof DirectorAttendanceRoute
   '/director/clients': typeof DirectorClientsRoute
@@ -249,6 +258,7 @@ export interface FileRouteTypes {
     | '/employee'
     | '/forgot-password'
     | '/login'
+    | '/notifications'
     | '/director/archive'
     | '/director/attendance'
     | '/director/clients'
@@ -274,6 +284,7 @@ export interface FileRouteTypes {
     | '/'
     | '/forgot-password'
     | '/login'
+    | '/notifications'
     | '/director/archive'
     | '/director/attendance'
     | '/director/clients'
@@ -301,6 +312,7 @@ export interface FileRouteTypes {
     | '/employee'
     | '/forgot-password'
     | '/login'
+    | '/notifications'
     | '/director/archive'
     | '/director/attendance'
     | '/director/clients'
@@ -329,11 +341,19 @@ export interface RootRouteChildren {
   EmployeeRoute: typeof EmployeeRouteWithChildren
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
+  NotificationsRoute: typeof NotificationsRoute
   FFormIdRoute: typeof FFormIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -576,6 +596,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmployeeRoute: EmployeeRouteWithChildren,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
+  NotificationsRoute: NotificationsRoute,
   FFormIdRoute: FFormIdRoute,
 }
 export const routeTree = rootRouteImport
